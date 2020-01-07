@@ -1,6 +1,6 @@
 export const data = {
     chest: {
-        bodypart: 'chest',
+        bodypart: 'Chest',
         isSelected: false,
         exercises: {
             flat_Bench_Press: {
@@ -38,7 +38,7 @@ export const data = {
         }
     },
     legs: {
-        bodypart: 'legs',
+        bodypart: 'Legs',
         isSelected: false,
         exercises: {
             squats: {
@@ -72,7 +72,7 @@ export const data = {
         }
     },
     shoulders: {
-        bodypart: 'shoulders',
+        bodypart: 'Shoulders',
         isSelected: false,
         exercises: {
             seated_Press: {
@@ -98,7 +98,7 @@ export const data = {
         }
     },
     back: {
-        bodypart: 'back',
+        bodypart: 'Back',
         isSelected: false,
         exercises: {
             seated_Pull_Downs: {
@@ -124,7 +124,7 @@ export const data = {
         }
     },
     triceps: {
-        bodypart: 'triceps',
+        bodypart: 'Triceps',
         isSelected: false,
         exercises: {
             cable_Extension: {
@@ -150,7 +150,7 @@ export const data = {
         }
     },
     biceps: {
-        bodypart: 'biceps',
+        bodypart: 'Biceps',
         isSelected: false,
         exercises: {
             standing_Dumbell_Curls: {
@@ -176,7 +176,7 @@ export const data = {
         }
     },
     core: {
-        bodypart: 'abs/core',
+        bodypart: 'Abs/Core',
         isSelected: false,
         exercises: {
             planks: {
@@ -206,7 +206,7 @@ export const data = {
         }
     },
     circuits: {
-        bodypart: 'circuits',
+        bodypart: 'Circuits',
         isSelected: false,
         exercises: {
             seated_Pull_Downs: {
@@ -232,7 +232,7 @@ export const data = {
         }
     },
     training: {
-        bodypart: 'functional training',
+        bodypart: 'Functional Training',
         isSelected: false,
         exercises: {
             sled_Push: {
@@ -258,7 +258,7 @@ export const data = {
         }
     },
     stretching: {
-        bodypart: 'stretching',
+        bodypart: 'Stretching',
         isSelected: false,
         exercises: {
             standing_Hamstring_Stretch: {
@@ -284,7 +284,7 @@ export const data = {
         }
     },
     bodyweight: {
-        bodypart: 'bodyweight',
+        bodypart: 'Bodyweight',
         isSelected: false,
         exercises: {
             air_Squat: {
