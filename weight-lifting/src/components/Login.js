@@ -2,16 +2,33 @@ import React, {useState} from 'react';
 
 const Login = props => {
 
-return (
+    const [userCheck, setUserCheck] = useState({
+        username: "",
+        password:"",
+    });
+
+    const handleChanges = e => {
+    setUserCheck({
+        ...userCheck,
+        [e.target.name]: e.target.value,
+    })}
+
+    const submitForm = a => {
+        a.preventDefault();
+        setUserCheck(userCheck);
+    }
+
+return (   
+        
         <div id="Login">
             <form onSubmit={submitForm}>
 
                 <label htmlFor="Username">Username:</label>
-                <input id="username" type="text" placeholder="username" name="username" value={user.username} onChange={handleChanges} noValidate/>
-                    {showError1 === true ? <span>User does not exist</span> : ""}
+                <input id="username" type="text" placeholder="username" name="username" value={userCheck.username} onChange={handleChanges} noValidate/>
+                    {/* {showError1 === true ? <span>User does not exist</span> : ""} */}
                 <label htmlFor="Password">Password:</label>
-                <input id="password" type="password" placeholder="" name="password" value={user.password} onChange={handleChanges} noValidate/>
-                    {showError2 === true ? <span>Password is incorrect</span> : ""}
+                <input id="password" type="password" placeholder="" name="password" value={userCheck.password} onChange={handleChanges} noValidate/>
+                    {/* {showError2 === true ? <span>Password is incorrect</span> : ""} */}
                 <button type="submit">Login</button>
                 
             </form> 
@@ -19,4 +36,4 @@ return (
     )
 }
 
-export default SignupForm;
+export default Login;
