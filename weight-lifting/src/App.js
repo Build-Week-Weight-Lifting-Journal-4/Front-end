@@ -1,17 +1,21 @@
-import React, {useState} from 'react';
 
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import Navbar from "./components/Navbar"
+import Dashboard from './components/Dashboard'
 import './App.css';
 
-
 function App() {
-  
-  
-  
   return (
-    <div className="App">
-   
-      
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Navbar />
+        <Switch>
+          <Route path="/" component={Dashboard}/>
+        </Switch>
+      </div>
+    </BrowserRouter>
+
   );
 }
 
