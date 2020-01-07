@@ -1,7 +1,9 @@
+
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Navbar from "./components/Navbar"
 import Dashboard from './components/Dashboard'
+import './App.css';
 
 function App() {
   return (
@@ -13,6 +15,7 @@ function App() {
         </Switch>
       </div>
     </BrowserRouter>
+
   );
 }
 
