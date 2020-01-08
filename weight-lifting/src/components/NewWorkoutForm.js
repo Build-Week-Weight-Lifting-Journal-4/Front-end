@@ -19,6 +19,7 @@ const Input = styled.input`
 margin: 1% auto;
 `;
 const SelectInput = styled.select`
+display: block;
 width: 30%;
 margin: 1% auto;
 `;
@@ -28,9 +29,10 @@ width: 20%;
 margin: 2% auto;
 `;
 
-const WorkOutForm = props => {
+const WorkOutForm = () => {
+    console.log(data)
     const regions = Object.keys(data);
-    const [excercise, setExercise] = useState({
+    const [exercise, setExercise] = useState({
         name: '',
         region: '',
         exercise: '',
@@ -38,12 +40,13 @@ const WorkOutForm = props => {
         reps: '',
         time: ''
     });
-    console.log({workout: excercise});
+    console.log({workout: exercise});
 
 
     const workoutChange = e => {
+        console.log(e)
         setExercise({
-            ...excercise, [e.target.name]: e.target.value
+            ...exercise, [e.target.name]: e.target.value
         });
     };
 
@@ -51,15 +54,14 @@ const WorkOutForm = props => {
     const addWorkout = e => {
         e.preventDefault();
         e.stopPropagation();
-        console.log({e});
-
+       console.log(exercise);
     };
 
     return (
         <WorkoutWrapper>
             <Form onSubmit={addWorkout}>
-                <Label>Excercise Name:
-                    <Input required type='text' name='name' value={excercise.name} onChange={workoutChange}/>
+                <Label>Exercise Name:
+                    <Input required type='text' name='name' value={exercise.name} onChange={workoutChange}/>
                 </Label>
                 <SelectInput required onChange={workoutChange} name='region'>
                     <Option>Region</Option>
@@ -67,21 +69,24 @@ const WorkOutForm = props => {
                 </SelectInput>
                 <SelectInput required onChange={workoutChange} name='exercise'>
                     <Option>Exercise</Option>
-                    {regions.map(region => {
+                    {/* {regions.map(region => {
                         return Object.keys(data[region].exercises).map(exercise => {
-                            return excercise.region === region ? <Option
+                            return exercise.region === region ? <Option
                                 value={exercise}>{data[region].exercises[exercise].exercisename}</Option> : <></>;
                         });
+                    })} */}
+                    {exercise.region && Object.keys(data[exercise.region].exercises).map(exercise => {
+                        return <Option value={exercise}>{exercise}</Option>
                     })}
                 </SelectInput>
                 <Label>Sets:
-                    <Input required type='number' min='1'/>
+                    <Input name="sets" required type='number' min='1' max='50' onChange={workoutChange}/>
                 </Label>
                 <Label>Reps:
-                    <Input required type='number' min='1'/>
+                    <Input name="reps" required type='number' min='1'max="70" onChange={workoutChange}/>
                 </Label>
                 <Label>Time:
-                    <Input required type='number' placeholder='In minutes' min='1'/>
+                    <Input name="time" required type='number' placeholder='In minutes' min='1' max="60" onChange={workoutChange}/>
                 </Label>
                 <Button type='submit'>Add</Button>
             </Form>
