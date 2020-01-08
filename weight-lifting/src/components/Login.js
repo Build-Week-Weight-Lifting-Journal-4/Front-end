@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import mapDispatchToProps from 'react-redux/lib/connect/mapDispatchToProps';
 import {postLogin} from '../Actions';
+import axios from 'axios';
 
 const Login = props => {
 
@@ -18,11 +19,14 @@ const Login = props => {
 
     const submitForm = a => {
         a.preventDefault();
-        props.postLogin(userCheck)
+        axios.post('https://weightlift2020.herokuapp.com/users/login', userCheck)
+            .then(response => {
+                localStorage.setItem('token', response.data.token)
+            })
         setTimeout(() => {
             props.history.push('/dashboard')
         },4000)
-
+        console.log(userCheck)
     }
 
 return (   
