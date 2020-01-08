@@ -59,7 +59,7 @@ const WorkOutForm = props => {
         <WorkoutWrapper>
             <Form onSubmit={addWorkout}>
                 <Label>Excercise Name:
-                    <Input required type='text' name='workoutName' value={excercise.name} onChange={workoutChange}/>
+                    <Input required type='text' name='name' value={excercise.name} onChange={workoutChange}/>
                 </Label>
                 <SelectInput required onChange={workoutChange} name='region'>
                     <Option>Region</Option>

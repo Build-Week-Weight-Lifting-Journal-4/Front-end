@@ -6,6 +6,7 @@ import './App.css';
 import PrivateRoute from './components/PrivateRoute';
 import SignupForm from './components/SignUp'
 import Login from './components/Login';
+import NewWorkoutForm from './components/NewWorkoutForm'
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         <Switch>
             <Route exact path='/' component={SignupForm}/>
             <Route exact path='/login' component={Login}/>
-          <PrivateRoute path="/dashboard" component={Dashboard}/>
+            <PrivateRoute path="/dashboard" component={Dashboard}/>
+            <PrivateRoute path="/newworkoutform" component={NewWorkoutForm}/>
         </Switch>
       </div>
     </BrowserRouter>
