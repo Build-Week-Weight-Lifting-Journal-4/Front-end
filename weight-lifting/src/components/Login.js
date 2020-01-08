@@ -1,4 +1,7 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
+import mapDispatchToProps from 'react-redux/lib/connect/mapDispatchToProps';
+import {postLogin} from '../Actions';
 
 const Login = props => {
 
@@ -15,7 +18,11 @@ const Login = props => {
 
     const submitForm = a => {
         a.preventDefault();
-        setUserCheck(userCheck);
+        props.postLogin(userCheck)
+        setTimeout(() => {
+            props.history.push('/dashboard')
+        },4000)
+
     }
 
 return (   
@@ -36,4 +43,8 @@ return (
     )
 }
 
-export default Login;
+const mapStateToProps = state => {
+    return {...state};
+};
+
+export default connect(mapStateToProps,{postLogin})(Login);
