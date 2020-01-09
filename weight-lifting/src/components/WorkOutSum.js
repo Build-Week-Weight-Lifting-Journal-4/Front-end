@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import { deleteExercise, startEditing } from '../Actions';
 const WorkoutSum = ({ exercise, deleteExercise, startEditing, history }) => {
@@ -6,7 +7,9 @@ const WorkoutSum = ({ exercise, deleteExercise, startEditing, history }) => {
     return (
     <div className="card z-depth-0 workout-summary">
         <div className="card-content grey-text text-darken-3 ">
+            <Link to={`/workout/${id}`}>
             <span className="card-title">{name}</span>
+            </Link>
             <p>{region} </p>
             <p className="grey-text"> on{updated_at}</p>
         </div>
