@@ -25,7 +25,6 @@ const Login = props => {
                 const { postLogin } = props
                 postLogin(token, userId)
                 props.history.push('/dashboard')
-                console.log(response);
             })
             .catch(error => {
                 console.log(error.message)
@@ -34,9 +33,8 @@ const Login = props => {
             // },4000)
             console.log(userCheck)
     }
-    console.log(props)
-return (   
-        
+return (
+
         <div id="form">
             <form onSubmit={submitForm}>
 
@@ -47,9 +45,9 @@ return (
                 <input id="password" type="password" placeholder="" name="password" value={userCheck.password} onChange={handleChanges} noValidate/>
                     {/* {showError2 === true ? <span>Password is incorrect</span> : ""} */}
                 <button type="submit">Login</button>
-                
-            </form> 
-        </div>    
+
+            </form>
+        </div>
     )
 }
 

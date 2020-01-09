@@ -18,7 +18,7 @@ export const putExercise = exercise => dispatch => {
         .put(`exercise/${exercise.id}`,exercise)
         .then(res => {
             console.log('put exercise res', res)
-            dispatch({type:PUT_EXERCISE_SUCCESS,payload:res.data})
+            dispatch({type:PUT_EXERCISE_SUCCESS,payload:exercise})
         })
         .catch(error => {
             dispatch({type:PUT_EXERCISE_FAILURE,payload:error.message})

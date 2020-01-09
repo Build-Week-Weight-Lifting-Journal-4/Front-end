@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux'
 import {data} from '../data';
-import {putExercise, startEditing} from '../Actions';
+import {putExercise, stopEditing} from '../Actions';
 
 const WorkoutWrapper = styled.div`
 
@@ -47,6 +47,11 @@ const EditForm = props => {
         });
     };
 
+    const stopEditingHandler = e => {
+        e.preventDefault();
+        props.stopEditing()
+        props.history.push('/dashboard')
+    }
 
     const editWorkout = e => {
         e.preventDefault();
@@ -88,8 +93,8 @@ const EditForm = props => {
                 <Label>Time:
                     <Input value={exercise.time} name="time" required type='number' placeholder='In minutes' min='1' max="60" onChange={workoutChange}/>
                 </Label>
-                <Button type='submit'>Add</Button>
-                <Button>Cancel</Button>
+                <Button type='submit'>Edit</Button>
+                <Button onClick={stopEditingHandler}>Cancel</Button>
             </Form>
         </WorkoutWrapper>
     );
@@ -99,4 +104,4 @@ const mapStateToProps = state => {
     return {...state};
 }
 
-export default connect(mapStateToProps,{putExercise,startEditing})(EditForm);
+export default connect(mapStateToProps,{putExercise,stopEditing})(EditForm);

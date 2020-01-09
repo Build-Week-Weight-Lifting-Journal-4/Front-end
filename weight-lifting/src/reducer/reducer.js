@@ -30,7 +30,7 @@ const initialState = {
     error: '',
     loggedIn: false,
     exerciseList: [],
-    userId: ''
+    userId: localStorage.getItem('userId')
 };
 
 const reducer = (state = initialState, action) => {
@@ -59,18 +59,29 @@ const reducer = (state = initialState, action) => {
             };
         case POST_LOGIN_SUCCESS:
             localStorage.setItem('token', action.payload.token);
-            localStorage.setItem('userId', action.payload.userId)
-            console.log(action.payload);
+            localStorage.setItem('userId', action.payload.userId);
             return {
                 ...state,
                 isLoggingIn: false,
                 loggedIn: true,
                 userId: localStorage.getItem('userId'),
             };
+        case GET_EXERCISES_START:
+            return {
+                ...state,
+                isFetching: true
+            };
         case GET_EXERCISES_SUCCESS:
             return {
                 ...state,
-                exerciseList: [...action.payload]
+                exerciseList: [...action.payload],
+                isFetching: false
+            };
+        case GET_EXERCISES_FAILURE:
+            return {
+                ...state,
+                isFetching: false,
+                error: action.payload
             };
         case POST_LOGIN_FAILURE:
             return {
@@ -101,18 +112,44 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 isEditing: true,
                 editExercise: action.payload
-            }
+            };
         case PUT_EXERCISE_SUCCESS:
+            const editMap = state.exerciseList.map(exercise => {
+                return exercise.id === action.payload.id ? action.payload : exercise;
+            });
             return {
                 ...state,
                 isEditing: false,
-                editExercise: {}
-            }
+                editExercise: {},
+                exerciseList: editMap
+            };
         case PUT_EXERCISE_FAILURE:
             return {
                 ...state,
                 error: action.payload
-            }
+            };
+        case STOP_EDITING:
+            return {
+                ...state,
+                isEditing: false,
+                editExercise: {}
+            };
+        case POST_EXERCISE_START:
+            return {
+                ...state,
+                isPosting: true
+            };
+        case POST_EXERCISE_SUCCESS:
+            return {
+                ...state,
+                isPosting: false,
+                exerciseList: [...state.exerciseList, action.payload]
+            };
+        case POST_EXERCISE_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            };
         default:
             return state;
     }
