@@ -58,7 +58,7 @@ const SignupForm = props => {
     };
 
     return (
-        <div id='signup'>
+        <div id='form'>
             <form onSubmit={submitForm}>
 
                 <label htmlFor='Name'>Name:</label>
