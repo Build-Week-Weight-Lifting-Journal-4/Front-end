@@ -1,5 +1,4 @@
 import axiosWithAuth from '../utlis/axiosWithAuth';
-import axios from 'axios'
 
 export const POST_SIGNUP_START = 'POST_SIGNUP_START';
 export const POST_SIGNUP_SUCCESS = 'POST_SIGNUP_SUCCESS';
@@ -11,7 +10,7 @@ export const postSignup = creds => dispatch => {
         .post('users/register', creds)
         .then(res => {
             console.log('post signup res', res)
-            dispatch({type: POST_SIGNUP_SUCCESS, payload: res.data.payload});
+            dispatch({type: POST_SIGNUP_SUCCESS, payload: res.data.token});
 
         })
         .catch(error => {

@@ -12,7 +12,7 @@ code {
     monospace;
 }
 
-#signup {
+#form {
   margin: 0 auto;
   margin-top: 5%;
   display:flex;
@@ -20,7 +20,7 @@ code {
   justify-content: center;
 }
 
-#signup form {
+#form form {
   display:flex;
   flex-direction: column;
   justify-content: space-around;
@@ -28,11 +28,11 @@ code {
   height:10rem;
 }
 
-#signup button {
+#form button {
   width:100px;
   height:30px;
 }
 
-#signup span {
+#form span {
   font-size: .5rem;
 }

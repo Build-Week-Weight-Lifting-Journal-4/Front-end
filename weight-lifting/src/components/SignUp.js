@@ -46,7 +46,9 @@ const SignupForm = props => {
         if (validateForm(a)) {
             console.info('Valid Form');
             props.postSignup(user);
-            props.history.push('/login')
+            setTimeout(() => {
+            props.history.push('/dashboard')
+        },4000)
             setNewUser(user);
             setShowError1(false);
             setShowError2(false);
@@ -56,7 +58,7 @@ const SignupForm = props => {
     };
 
     return (
-        <div id='signup'>
+        <div id='form'>
             <form onSubmit={submitForm}>
 
                 <label htmlFor='Name'>Name:</label>
