@@ -14,7 +14,10 @@ import {
     PUT_EXERCISE_START,
     PUT_EXERCISE_SUCCESS,
     PUT_EXERCISE_FAILURE,
-    STOP_EDITING
+    STOP_EDITING,
+    DELETE_EXERCISES_START,
+    DELETE_EXERCISES_SUCCESS,
+    DELETE_EXERCISES_FAILURE
 } from '../Actions';
 
 const initialState = {
@@ -22,11 +25,12 @@ const initialState = {
     isEditing: false,
     isLoggingIn: false,
     isPosting: false,
-    editId: '',
+    idDeleting: false,
+    editExercise: {},
     error: '',
     loggedIn: false,
     exerciseList: [],
-    userId: null
+    userId: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -55,26 +59,60 @@ const reducer = (state = initialState, action) => {
             };
         case POST_LOGIN_SUCCESS:
             localStorage.setItem('token', action.payload.token);
-            console.log(action.payload)
-            const { userId } = action.payload;
-            console.log('it works', userId)
+            localStorage.setItem('userId', action.payload.userId)
+            console.log(action.payload);
             return {
                 ...state,
                 isLoggingIn: false,
                 loggedIn: true,
-                userId,
+                userId: localStorage.getItem('userId'),
             };
         case GET_EXERCISES_SUCCESS:
             return {
                 ...state,
-                exerciseList:[...action.payload]
-            }
+                exerciseList: [...action.payload]
+            };
         case POST_LOGIN_FAILURE:
             return {
                 ...state,
                 isLoggingIn: false,
                 error: action.payload
             };
+        case DELETE_EXERCISES_START:
+            return {
+                ...state,
+                idDeleting: true
+            };
+        case DELETE_EXERCISES_SUCCESS:
+            const filterExercises = state.exerciseList.filter(exercise => exercise.id !== action.payload);
+            return {
+                ...state,
+                idDeleting: false,
+                exerciseList: filterExercises
+            };
+        case DELETE_EXERCISES_FAILURE:
+            return {
+                ...state,
+                idDeleting: false,
+                error: action.payload
+            };
+        case PUT_EXERCISE_START:
+            return {
+                ...state,
+                isEditing: true,
+                editExercise: action.payload
+            }
+        case PUT_EXERCISE_SUCCESS:
+            return {
+                ...state,
+                isEditing: false,
+                editExercise: {}
+            }
+        case PUT_EXERCISE_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            }
         default:
             return state;
     }

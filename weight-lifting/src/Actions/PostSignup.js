@@ -1,5 +1,4 @@
 import axiosWithAuth from '../utlis/axiosWithAuth';
-import axios from 'axios'
 
 export const POST_SIGNUP_START = 'POST_SIGNUP_START';
 export const POST_SIGNUP_SUCCESS = 'POST_SIGNUP_SUCCESS';

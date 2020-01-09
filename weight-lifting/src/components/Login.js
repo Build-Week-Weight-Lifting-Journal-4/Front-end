@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import mapDispatchToProps from 'react-redux/lib/connect/mapDispatchToProps';
 import { postLogin, loginError } from '../Actions';
 import axios from 'axios';
 
@@ -29,9 +28,7 @@ const Login = props => {
                 console.log(response);
             })
             .catch(error => {
-                const { loginError } = props
-                // dispatch({type: POST_LOGIN_FAILURE, payload: error.response.data.error});
-                loginError( error.response.data.error)
+                console.log(error.message)
             });
         // setTimeout(() => {
             // },4000)

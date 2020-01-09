@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux'
 import {data} from '../data';
-import {postExercise} from '../Actions';
+import {putExercise, startEditing} from '../Actions';
 
 const WorkoutWrapper = styled.div`
 
@@ -30,17 +30,12 @@ width: 20%;
 margin: 2% auto;
 `;
 
-const WorkOutForm = props => {
-    console.log('workoutform props',props)
+const EditForm = props => {
+    console.log(data)
     const regions = Object.keys(data);
     const [exercise, setExercise] = useState({
-        name: '',
-        region: '',
-        sets: '',
-        reps: '',
-        time: '',
-        user_id: props.userId,
-        completed: false
+        ...props.editExercise
+
     });
     console.log({workout: exercise});
 
@@ -53,21 +48,21 @@ const WorkOutForm = props => {
     };
 
 
-    const addWorkout = e => {
+    const editWorkout = e => {
         e.preventDefault();
         e.stopPropagation();
-        console.log(exercise);
-        props.postExercise(exercise)
-        props.history.push('/dashboard')
+       console.log(exercise);
+       props.putExercise(exercise);
+       props.history.push('/dashboard')
     };
 
     return (
         <WorkoutWrapper>
-            <Form onSubmit={addWorkout}>
+            <Form onSubmit={editWorkout}>
                 <Label>Exercise Name:
                     <Input required type='text' name='name' value={exercise.name} onChange={workoutChange}/>
                 </Label>
-                <SelectInput required onChange={workoutChange} name='region'>
+                <SelectInput required onChange={workoutChange} value={exercise.region} name='region'>
                     <Option>Region</Option>
                     {regions.map(region => <Option key={region} value={region}>{region.toUpperCase()}</Option>)}
                 </SelectInput>
@@ -85,15 +80,16 @@ const WorkOutForm = props => {
 
                 </SelectInput> */}
                 <Label>Sets:
-                    <Input name="sets" required type='number' min='1' max='50' onChange={workoutChange}/>
+                    <Input value={exercise.sets} name="sets" required type='number' min='1' max='50' onChange={workoutChange}/>
                 </Label>
                  <Label>Reps:
-                    <Input name="reps" required type='number' min='1'max="70" onChange={workoutChange}/>
+                    <Input value={exercise.reps} name="reps" required type='number' min='1'max="70" onChange={workoutChange}/>
                 </Label>
                 <Label>Time:
-                    <Input name="time" required type='number' placeholder='In minutes' min='1' max="60" onChange={workoutChange}/>
+                    <Input value={exercise.time} name="time" required type='number' placeholder='In minutes' min='1' max="60" onChange={workoutChange}/>
                 </Label>
                 <Button type='submit'>Add</Button>
+                <Button>Cancel</Button>
             </Form>
         </WorkoutWrapper>
     );
@@ -103,4 +99,4 @@ const mapStateToProps = state => {
     return {...state};
 }
 
-export default connect(mapStateToProps,{postExercise})(WorkOutForm);
+export default connect(mapStateToProps,{putExercise,startEditing})(EditForm);

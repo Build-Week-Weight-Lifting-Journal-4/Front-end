@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import WorkOutList from './WorkOutList';
-import axiosWithAuth from '../utlis/axiosWithAuth';
+// import axiosWithAuth from '../utlis/axiosWithAuth';
 import { connect } from 'react-redux'
 import { getExercises } from "../Actions"
 
@@ -12,19 +12,22 @@ class Dashboard extends Component {
         // })
         this.props.getExercises();
     }
+
     render() {
         console.log(this.props.exerciseList)
         const { exerciseList } = this.props;
         return (
+
             <div className="dashboard container">
                 <div className="row">
                     <div className="col s12 m6">
-                        <WorkOutList exercises={exerciseList}/>
+                        {exerciseList.length ? <WorkOutList exercises={exerciseList} history={this.props.history}/>:<h2>Add A Workout</h2>}
                     </div>
                     {/* <div className=" col s12 m5 offset-m1">
                     </div> */}
                 </div>
             </div>
+
         )
     }
 }
