@@ -56,15 +56,15 @@ const SignupForm = props => {
     };
 
     return (
-        <div id='signup'>
+        <div id='form'>
             <form onSubmit={submitForm}>
 
                 <label htmlFor='Name'>Name:</label>
-                <input id='name' type='text' placeholder='name' name='full_name' value={user.full_name} onChange={handleChanges}
+                <input id='name' type='text' placeholder='' name='full_name' value={user.full_name} onChange={handleChanges}
                        noValidate/>
 
                 <label htmlFor='Username'>Username:</label>
-                <input id='username' type='text' placeholder='username' name='username' value={user.username}
+                <input id='username' type='text' placeholder='' name='username' value={user.username}
                        onChange={handleChanges} noValidate/>
                 {showError1 === true ? <span>Username must be at least 6 characters</span> : ""}
                 <label htmlFor='Password'>Password:</label>
