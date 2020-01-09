@@ -25,7 +25,8 @@ const initialState = {
     editId: '',
     error: '',
     loggedIn: false,
-    exerciseList: []
+    exerciseList: [],
+    userId: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -53,12 +54,21 @@ const reducer = (state = initialState, action) => {
                 isLoggingIn: true
             };
         case POST_LOGIN_SUCCESS:
-            localStorage.setItem('token', action.payload);
+            localStorage.setItem('token', action.payload.token);
+            console.log(action.payload)
+            const { userId } = action.payload;
+            console.log('it works', userId)
             return {
                 ...state,
                 isLoggingIn: false,
-                loggedIn: true
+                loggedIn: true,
+                userId,
             };
+        case GET_EXERCISES_SUCCESS:
+            return {
+                ...state,
+                exerciseList:[...action.payload]
+            }
         case POST_LOGIN_FAILURE:
             return {
                 ...state,

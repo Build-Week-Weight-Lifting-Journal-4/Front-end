@@ -1,12 +1,15 @@
 import React from 'react'
 import WorkoutSum from './WorkOutSum'
 
-const WorkOutList = () =>  {
+const WorkOutList = ({ exercises }) =>  {
     return (
         <div className="workout-list section">
+            {/* <WorkoutSum/>
             <WorkoutSum/>
-            <WorkoutSum/>
-            <WorkoutSum/>
+            <WorkoutSum/> */}
+            {exercises.map(exercise => {
+                return <WorkoutSum exercise={exercise}/>
+            })}
         </div>
     )
 }
