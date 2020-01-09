@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import mapDispatchToProps from 'react-redux/lib/connect/mapDispatchToProps';
-import {postLogin} from '../Actions';
+import { postLogin, loginError } from '../Actions';
 import axios from 'axios';
 
 const Login = props => {
@@ -17,18 +17,27 @@ const Login = props => {
         [e.target.name]: e.target.value,
     })}
 
-    const submitForm = a => {
-        a.preventDefault();
+    const submitForm = e => {
+        e.preventDefault();
         axios.post('https://weightlift2020.herokuapp.com/users/login', userCheck)
             .then(response => {
-                localStorage.setItem('token', response.data.token)
+                // localStorage.setItem('token', response.data.token)
+                const { token, user_id: userId } = response.data;
+                const { postLogin } = props
+                postLogin(token, userId)
+                props.history.push('/dashboard')
+                console.log(response);
             })
-        setTimeout(() => {
-            props.history.push('/dashboard')
-        },4000)
-        console.log(userCheck)
+            .catch(error => {
+                const { loginError } = props
+                // dispatch({type: POST_LOGIN_FAILURE, payload: error.response.data.error});
+                loginError( error.response.data.error)
+            });
+        // setTimeout(() => {
+            // },4000)
+            console.log(userCheck)
     }
-
+    console.log(props)
 return (   
         
         <div id="form">
@@ -51,4 +60,4 @@ const mapStateToProps = state => {
     return {...state};
 };
 
-export default connect(mapStateToProps,{postLogin})(Login);
+export default connect(mapStateToProps,{postLogin, loginError})(Login);
