@@ -68,16 +68,14 @@ const WorkOutForm = () => {
                     {regions.map(region => <Option value={region}>{region.toUpperCase()}</Option>)}
                 </SelectInput>
                 <SelectInput required onChange={workoutChange} name='exercise'>
-                    <Option>Exercise</Option>
-                    {/* {regions.map(region => {
+                    <Option value=''>Exercise</Option>
+                     {regions.map(region => {
                         return Object.keys(data[region].exercises).map(exercise => {
                             return exercise.region === region ? <Option
                                 value={exercise}>{data[region].exercises[exercise].exercisename}</Option> : <></>;
                         });
-                    })} */}
-                    {exercise.region && Object.keys(data[exercise.region].exercises).map(exercise => {
-                        return <Option value={exercise}>{exercise}</Option>
                     })}
+
                 </SelectInput>
                 <Label>Sets:
                     <Input name="sets" required type='number' min='1' max='50' onChange={workoutChange}/>

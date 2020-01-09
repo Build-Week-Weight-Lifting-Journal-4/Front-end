@@ -11,7 +11,7 @@ export const postSignup = creds => dispatch => {
         .post('users/register', creds)
         .then(res => {
             console.log('post signup res', res)
-            dispatch({type: POST_SIGNUP_SUCCESS, payload: res.data.payload});
+            dispatch({type: POST_SIGNUP_SUCCESS, payload: res.data.token});
 
         })
         .catch(error => {
