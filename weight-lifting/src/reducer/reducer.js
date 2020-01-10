@@ -14,7 +14,10 @@ import {
     PUT_EXERCISE_START,
     PUT_EXERCISE_SUCCESS,
     PUT_EXERCISE_FAILURE,
-    STOP_EDITING
+    STOP_EDITING,
+    DELETE_EXERCISES_START,
+    DELETE_EXERCISES_SUCCESS,
+    DELETE_EXERCISES_FAILURE
 } from '../Actions';
 
 const initialState = {
@@ -22,10 +25,12 @@ const initialState = {
     isEditing: false,
     isLoggingIn: false,
     isPosting: false,
-    editId: '',
+    idDeleting: false,
+    editExercise: {},
     error: '',
     loggedIn: false,
-    exerciseList: []
+    exerciseList: [],
+    userId: localStorage.getItem('userId')
 };
 
 const reducer = (state = initialState, action) => {
@@ -53,16 +58,96 @@ const reducer = (state = initialState, action) => {
                 isLoggingIn: true
             };
         case POST_LOGIN_SUCCESS:
-            localStorage.setItem('token', action.payload);
+            localStorage.setItem('token', action.payload.token);
+            localStorage.setItem('userId', action.payload.userId);
             return {
                 ...state,
                 isLoggingIn: false,
-                loggedIn: true
+                loggedIn: true,
+                userId: localStorage.getItem('userId'),
+            };
+        case GET_EXERCISES_START:
+            return {
+                ...state,
+                isFetching: true
+            };
+        case GET_EXERCISES_SUCCESS:
+            return {
+                ...state,
+                exerciseList: [...action.payload],
+                isFetching: false
+            };
+        case GET_EXERCISES_FAILURE:
+            return {
+                ...state,
+                isFetching: false,
+                error: action.payload
             };
         case POST_LOGIN_FAILURE:
             return {
                 ...state,
                 isLoggingIn: false,
+                error: action.payload
+            };
+        case DELETE_EXERCISES_START:
+            return {
+                ...state,
+                idDeleting: true
+            };
+        case DELETE_EXERCISES_SUCCESS:
+            const filterExercises = state.exerciseList.filter(exercise => exercise.id !== action.payload);
+            return {
+                ...state,
+                idDeleting: false,
+                exerciseList: filterExercises
+            };
+        case DELETE_EXERCISES_FAILURE:
+            return {
+                ...state,
+                idDeleting: false,
+                error: action.payload
+            };
+        case PUT_EXERCISE_START:
+            return {
+                ...state,
+                isEditing: true,
+                editExercise: action.payload
+            };
+        case PUT_EXERCISE_SUCCESS:
+            const editMap = state.exerciseList.map(exercise => {
+                return exercise.id === action.payload.id ? action.payload : exercise;
+            });
+            return {
+                ...state,
+                isEditing: false,
+                editExercise: {},
+                exerciseList: editMap
+            };
+        case PUT_EXERCISE_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            };
+        case STOP_EDITING:
+            return {
+                ...state,
+                isEditing: false,
+                editExercise: {}
+            };
+        case POST_EXERCISE_START:
+            return {
+                ...state,
+                isPosting: true
+            };
+        case POST_EXERCISE_SUCCESS:
+            return {
+                ...state,
+                isPosting: false,
+                exerciseList: [...state.exerciseList, action.payload]
+            };
+        case POST_EXERCISE_FAILURE:
+            return {
+                ...state,
                 error: action.payload
             };
         default:
